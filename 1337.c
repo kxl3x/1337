@@ -8,25 +8,28 @@
 char* encode(char* s) {
     size_t len = strlen(s);
     char* pstr = malloc(len + 1); // afnt
-    strcpy(pstr, s);
+    strncpy(pstr, s, len);
+
+    // Account for null terminator
+    pstr[len] = '\0';
 
     for(int i = 0; i < len; i++) {
-	
-	if(i % 2 == 0) {
-	    pstr[i] = tolower(pstr[i]);
-	} else {
-	    pstr[i] = toupper(pstr[i]);
-	}
 
 	switch(pstr[i]) {
 	    case 'A':
-		pstr[i] = '@';
+		pstr[i] = '4';
+		break;
+	    case 'B':
+		pstr[i] = '8';
 		break;
 	    case 't':
 		pstr[i] = '7';
 		break;	
 	    case 'i':
-		pstr[i] = '1';	
+		pstr[i] = '!';	
+		break;
+	    case 'l':
+		pstr[i] = '1';
 		break;
 	    case 'e':
 		pstr[i] = '3';
@@ -34,12 +37,15 @@ char* encode(char* s) {
 	    case 'o':
 		pstr[i] = '0';
 		break;
-	    case 'F':
-		pstr[i] = '7';
-		break;
 	    case 'S':
-		pstr[i] = '$';
+		pstr[i] = '5';
 		break;
+	    default:
+	        if(i % 2 == 0) {
+		    pstr[i] = tolower(pstr[i]);
+		} else {
+		    pstr[i] = toupper(pstr[i]);
+		}
 	}	
     }    
 
