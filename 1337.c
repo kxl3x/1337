@@ -8,14 +8,16 @@
 char* encode(char* s) {
     size_t len = strlen(s);
     char* pstr = malloc(len + 1); // afnt
-    strncpy(pstr, s, len);
+
+    // Lets not make this more complicated, and just read directly from s
+    // strncpy(pstr, s, len);
 
     // Account for null terminator
     pstr[len] = '\0';
 
     for(int i = 0; i < len; i++) {
 
-	switch(pstr[i]) {
+	switch(s[i]) {
 	    case 'A':
 		pstr[i] = '4';
 		break;
@@ -42,9 +44,9 @@ char* encode(char* s) {
 		break;
 	    default:
 	        if(i % 2 == 0) {
-		    pstr[i] = tolower(pstr[i]);
+		    pstr[i] = tolower(s[i]);
 		} else {
-		    pstr[i] = toupper(pstr[i]);
+		    pstr[i] = toupper(s[i]);
 		}
 	}	
     }    
