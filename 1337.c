@@ -30,42 +30,42 @@ char* encode(char* s) {
 
     for (size_t i = 0; i < len; i++) {
 
-		switch (s[i]) {
-	    	case 'A':
-            	s[i] = '4';
-            	break;
-	    	case 'B':
-            	s[i] = '8';
-            	break;
-	    	case 't':
-            	s[i] = '7';
-            	break;
-	    	case 'i':
-            	s[i] = '!';
-            	break;
-	    	case 'l':
-            	s[i] = '1';
-            	break;
-        	case 'e':
-            	s[i] = '3';
-            	break;
-	    	case 'o':
-            	s[i] = '0';
-            	break;
-	   		case 'S':
-            	s[i] = '5';
-            	break;
-			case 'H':
-				s[i] = '#';
-				break;
-			case 'z':
-				s[i] = '2';
-				break;
-	    	default:
-	        	if (i % 2 == 0)
-                	s[i] = tolower(s[i]);
-        		else
-        		    s[i] = toupper(s[i]);
+        switch (s[i]) {
+            case 'A':
+                s[i] = '4';
+                break;
+            case 'B':
+                s[i] = '8';
+                break;
+            case 't':
+                s[i] = '7';
+                break;
+            case 'i':
+                s[i] = '!';
+                break;
+            case 'l':
+                s[i] = '1';
+                break;
+            case 'e':
+                s[i] = '3';
+                break;
+            case 'o':
+                s[i] = '0';
+                break;
+            case 'S':
+                s[i] = '5';
+                break;
+            case 'H':
+                s[i] = '#';
+                break;
+            case 'z':
+                s[i] = '2';
+                break;
+            default:
+                if (i % 2 == 0)
+                    s[i] = tolower(s[i]);
+                else
+                    s[i] = toupper(s[i]);
         }	
     }    
 
@@ -101,7 +101,7 @@ char *read_file(FILE *fp) {
         }
     }
 
-	// shave off excess unused memory
+    // shave off excess unused memory
     buffer = (char *)realloc(buffer, (sizeof(char) * (len + 1)));
     buffer[len] = '\0';
 
@@ -114,33 +114,33 @@ int main(int argc, char **argv) {
     
     int c;
 
-	static struct option long_options[] = {
-		{ "version",		no_argument,	0,		'V' },
-		{ "help",			no_argument,	0,		'h' },
-		{ 0,				0,				0,	 	 0  }
-	};
+    static struct option long_options[] = {
+        { "version",		no_argument,	0,		'V' },
+        { "help",		no_argument,	0,		'h' },
+        { 0,			0,		0,	 	 0  }
+    };
 
-	int option_index = 0;
+    int option_index = 0;
 
-	while ((c = getopt_long(argc, argv, "Vh", long_options, &option_index)) != -1) {
-		switch (c) {
+    while ((c = getopt_long(argc, argv, "Vh", long_options, &option_index)) != -1) {
+        switch (c) {
 
             case 'h':
                 print_usage();
                 break;
 
             case 'V':
-				puts("1337 from version: 1.0.1");
+                puts("1337 from version: 1.0.1");
                 break;   
 
-			case '?':
-				print_usage();
-				break;
+            case '?':
+                print_usage();
+                break;
         
             default: print_usage();
                 abort();
         }
-	}
+    }
 
 
     /* remove opt flags from argv */
