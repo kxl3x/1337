@@ -58,14 +58,14 @@ int main(int argc, char **argv) {
 
     if(argc == 2) {
 	char* output = encode(argv[1]);
-
-    	printf("input: %s\n\n", argv[1]);
-    	printf("output: %s\n", output);
+    	
+	// echo out; 
+	puts(output);
 
 	free(output);
     } else {
-	printf("Invalid arguments supplied.\n");
-    }	    
+	puts("Invalid arguments supplied.");
+    }
 
     return 0;
 }
