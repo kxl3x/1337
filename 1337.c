@@ -66,7 +66,7 @@ char* encode(char* s) {
                     s[i] = tolower(s[i]);
                 else
                     s[i] = toupper(s[i]);
-        }	
+        }   
     }    
 
     return s;
@@ -95,14 +95,14 @@ char *read_file(FILE *fp) {
 
         // SA [0.0.1]
         // Abusing the dynamic file size, could result in a DOS attack
-        //  on the systemwide resources. Default MAX_BUFFER 10mb 
-        if (bufsize == MAX_BUFFER) 
-            break;
+        //  on the systemwide resources. Default MAX_BUFFER 10mb    
 
         if (++len == bufsize) {
 
+            bufsize *= 2;   /* estimated new buffer size */
+            if (bufsize >= MAX_BUFFER)
+                break;
 
-            bufsize *= 2;
             buffer = (char *)realloc(buffer, (sizeof(char) * bufsize));
         }
     }
@@ -121,9 +121,9 @@ int main(int argc, char **argv) {
     int c;
 
     static struct option long_options[] = {
-        { "version",		no_argument,	0,		'V' },
-        { "help",		no_argument,	0,		'h' },
-        { 0,			0,		0,	 	 0  }
+        { "version",    no_argument,    0,      'V' },
+        { "help",       no_argument,    0,      'h' },
+        { 0,            0,              0,       0  }
     };
 
     int option_index = 0;
@@ -162,7 +162,7 @@ int main(int argc, char **argv) {
             fprintf(stderr, "Failure to read file.\n");
             exit(EXIT_FAILURE);
         }
-    }	
+    }   
 
         
     buffer = read_file(fp);
