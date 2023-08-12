@@ -6,7 +6,7 @@
 #include <string.h>
 #include <getopt.h>
 
-
+#define MAX_BUFFER 10000000 // 10mb 
 #define BUFFER_LEN BUFSIZ
 
 // 1337.c
@@ -92,6 +92,12 @@ char *read_file(FILE *fp) {
         buffer[len] = c;
 
         //putchar(c);
+
+        // SA [0.0.1]
+        // Abusing the dynamic file size, could result in a DOS attack
+        //  on the systemwide resources. Default MAX_BUFFER 10mb 
+        if (bufsize == MAX_BUFFER) 
+            break;
 
         if (++len == bufsize) {
 
