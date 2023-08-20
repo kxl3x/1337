@@ -71,10 +71,8 @@ char* encode(char* s) {
             case 'z':
                 s[i] = '2';
                 break;
-            default:
-                //if (i % 2 == 0)	
-
-				if ((i & 1) == 1)
+            default: 
+                if ((i & 1) == 1)
                     s[i] = tolower(s[i]);
                 else
                     s[i] = toupper(s[i]);
