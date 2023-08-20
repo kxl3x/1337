@@ -3,14 +3,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <signal.h>
+
 #include <string.h>
 #include <getopt.h>
 
 #define MAX_BUFFER 10000000 // 10mb 
 #define BUFFER_LEN BUFSIZ
 
+#define PROGRAM_VERSION "1.0.4"
+
 // 1337.c
 // converts text to 1337 speak
+
+static void sig_handler(int signo __attribute__ ((__unused__))) {
+
+	_Exit(EXIT_SUCCESS);
+
+}
 
 
 void print_usage() {
@@ -62,7 +72,9 @@ char* encode(char* s) {
                 s[i] = '2';
                 break;
             default:
-                if (i % 2 == 0)
+                //if (i % 2 == 0)	
+
+				if ((i & 1) == 1)
                     s[i] = tolower(s[i]);
                 else
                     s[i] = toupper(s[i]);
@@ -117,7 +129,7 @@ char *read_file(FILE *fp) {
 
 
 int main(int argc, char **argv) { 
-    
+
     int c;
 
     static struct option long_options[] = {
@@ -125,6 +137,9 @@ int main(int argc, char **argv) {
         { "help",       no_argument,    0,      'h' },
         { 0,            0,              0,       0  }
     };
+
+	signal(SIGINT, sig_handler);
+	signal(SIGTERM, sig_handler);
 
     int option_index = 0;
 
@@ -136,7 +151,8 @@ int main(int argc, char **argv) {
                 break;
 
             case 'V':
-                puts("1337 from version: 1.0.1");
+                printf("1337 from version: %s\n", PROGRAM_VERSION);
+				exit(EXIT_SUCCESS);
                 break;   
 
             case '?':
@@ -151,19 +167,18 @@ int main(int argc, char **argv) {
 
     /* remove opt flags from argv */
     argc -= optind;     
-    argv -= optind;
+    argv += optind;
 
 
     FILE *fp = stdin;
     char *buffer = NULL;
  
     if (argc > 0) {
-        if ((fp = fopen(argv[2], "r")) == NULL) {
+        if ((fp = fopen(argv[0], "r")) == NULL) {
             fprintf(stderr, "Failure to read file.\n");
             exit(EXIT_FAILURE);
         }
     }   
-
         
     buffer = read_file(fp);
 
